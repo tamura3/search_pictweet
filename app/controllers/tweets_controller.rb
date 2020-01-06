@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, except: [:index, :new, :create, :search]
-  before_action :move_to_index, except: :index
+  before_action :move_to_index, except: [:index, :show, :search]
 
   def index
     @tweets = Tweet.includes(:user).order("created_at DESC").page(params[:page]).per(5)
@@ -40,7 +40,7 @@ class TweetsController < ApplicationController
   end
 
   def set_tweet
-    @tweet = Tweet.find(params[:id]) 
+    @tweet = Tweet.find(params[:id])
   end
 
   def move_to_index
